@@ -1,0 +1,33 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to Server
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        USERNAME: ${{ secrets.USERNAME }}
+        HOST: ${{ secrets.HOST }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan "$HOST" >> ~/.ssh/known_hosts
+        ssh "$USERNAME"@"$HOST" << 'EOF'
+          source .bashrc
+          cd ci-cd-excise
+          git pull origin develop
+          npm install
+          npm run build
+          docker restart ci_cd_exercise_fe
+        EOF
