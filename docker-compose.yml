@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  app: 
+    image: ci_cd_exercise_fe
+    container_name: ci_cd_exercise_fe
+    build: 
+      dockerfile: ./Dockerfile
+    ports:
+      - '3009:3009'
+    volumes:
+      - .:/app
