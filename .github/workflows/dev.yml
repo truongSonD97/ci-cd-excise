@@ -31,7 +31,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/ci_cd_exercise_fe:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/ci_cd_exercise_fe:latest
 
     - name: Deploy to Server
       env:
