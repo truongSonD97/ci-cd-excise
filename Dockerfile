@@ -39,10 +39,12 @@ RUN \
 FROM base AS runner
 WORKDIR /app
 
-RUN npm install
+# Copy the built files and node_modules from the builder stage
+COPY --from=builder /app ./
 
 
 # Copy the rest of the application code to the working directory
-COPY . ./
+# Expose port
+EXPOSE 3009
 
-CMD npm run start
+CMD ["npm", "run", "start"]
