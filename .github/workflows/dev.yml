@@ -34,6 +34,7 @@ jobs:
     #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/ci_cd_exercise_fe:latest
     - name: Check SSH key
       run: |
+        mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ls -l ~/.ssh/id_rsa
