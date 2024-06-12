@@ -35,9 +35,9 @@ jobs:
 
     - name: Deploy to Server
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_AWS_PRIVATE_KEY }}
         USERNAME: ${{ secrets.USERNAME }}
-        HOST: ${{ secrets.HOST }}
+        HOST: ${{ secrets.AWS_HOST }}
       run: |
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
